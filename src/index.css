@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Manrope, ui-sans-serif, system-ui, sans-serif;
+  background: #0e1c16;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid #f0b429;
+  outline-offset: 2px;
+}
+
+.scroll-area {
+  scrollbar-width: thin;
+  scrollbar-color: #c3e0cb transparent;
+}
+
+.screen-enter {
+  animation: rise 280ms ease;
+}
+
+.sheet-enter {
+  animation: sheet-up 280ms ease;
+}
+
+.live-zoom {
+  animation: kenburns 18s ease-in-out infinite alternate;
+}
+
+.pulse-dot {
+  animation: pulse-dot 1.4s ease-out infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(16px);
+    opacity: 0.6;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes pulse-dot {
+  0% {
+    box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.65);
+  }
+  100% {
+    box-shadow: 0 0 0 8px rgba(225, 29, 72, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen-enter,
+  .sheet-enter,
+  .live-zoom,
+  .pulse-dot {
+    animation: none;
+  }
+}
