@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
 import { SUPER_ADMIN, useField } from "../state/FieldContext";
 import { PhoneFrame } from "../components/PhoneFrame";
@@ -34,12 +34,12 @@ export function AdminPage() {
 
   return (
     <PhoneFrame>
-      <header className="bg-leaf-800 px-4 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))] text-white">
+      <header className="border-b border-slate-200/80 bg-white px-4 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))] text-ink-900">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="text-xs font-bold uppercase tracking-wide text-white/70">DETEC</p>
-            <h1 className="text-lg font-extrabold leading-tight">Painel CAMPO VIRTUAL</h1>
-            <p className="text-xs text-white/70">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-leaf-700">DETEC</p>
+            <h1 className="text-lg font-semibold leading-tight tracking-tight">Painel CAMPO VIRTUAL</h1>
+            <p className="text-xs text-ink-500">
               {session.name} · {session.matricula}
             </p>
           </div>
@@ -49,13 +49,13 @@ export function AdminPage() {
               logout();
               navigate("/");
             }}
-            className="inline-flex h-11 items-center gap-1 rounded-2xl bg-white/10 px-3 text-sm font-extrabold"
+            className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-slate-200/80 px-3 text-sm font-medium text-ink-700 transition-all duration-150 hover:border-slate-300"
           >
-            <LogOut className="h-4 w-4" aria-hidden="true" />
+            <LogOut className="h-4 w-4" aria-hidden="true" strokeWidth={1.75} />
             Sair
           </button>
         </div>
-        <div className="mt-3 flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Gestão DETEC">
+        <div className="mt-3 flex gap-1.5 overflow-x-auto pb-1" role="tablist" aria-label="Gestão DETEC">
           {tabs.map((item) => (
             <button
               key={item.id}
@@ -64,8 +64,8 @@ export function AdminPage() {
               aria-selected={active === item.id}
               onClick={() => setTab(item.id)}
               className={cx(
-                "h-10 shrink-0 rounded-full px-3 text-sm font-extrabold",
-                active === item.id ? "bg-white text-leaf-800" : "bg-white/10 text-white",
+                "h-9 shrink-0 rounded-lg px-3 text-sm font-medium transition-all duration-150",
+                active === item.id ? "bg-leaf-800 text-white" : "bg-slate-50 text-ink-500 hover:border-slate-300 hover:text-ink-900",
               )}
             >
               {item.label}
@@ -77,7 +77,7 @@ export function AdminPage() {
         <div className="screen-enter space-y-3">
           {active === "feed" ? (
             <section aria-label="Novo card no feed">
-              <h2 className="text-xl font-extrabold text-ink-900">Novo card no feed</h2>
+              <h2 className="text-xl font-semibold leading-tight tracking-tight text-ink-900">Novo card no feed</h2>
               <p className="mb-3 text-sm text-ink-500">
                 Todo card sai como Nova atividade, na categoria escolhida.
               </p>
@@ -86,7 +86,7 @@ export function AdminPage() {
           ) : null}
           {active === "manejo" ? (
             <section aria-label="Registrar manejo">
-              <h2 className="text-xl font-extrabold text-ink-900">Registrar manejo</h2>
+              <h2 className="text-xl font-semibold leading-tight tracking-tight text-ink-900">Registrar manejo</h2>
               <p className="mb-3 text-sm text-ink-500">
                 Princípio ativo, dose em g/ha, calda, clima e estádio entram no histórico.
               </p>
@@ -95,14 +95,14 @@ export function AdminPage() {
           ) : null}
           {active === "fenologia" ? (
             <section aria-label="Atualizar fenologia">
-              <h2 className="text-xl font-extrabold text-ink-900">Atualizar fenologia</h2>
+              <h2 className="text-xl font-semibold leading-tight tracking-tight text-ink-900">Atualizar fenologia</h2>
               <p className="mb-3 text-sm text-ink-500">O estágio marcado passa a ser o atual do campo.</p>
               <PhenologyForm />
             </section>
           ) : null}
           {active === "clima" ? (
             <section aria-label="Histórico do clima">
-              <h2 className="text-xl font-extrabold text-ink-900">Histórico do clima</h2>
+              <h2 className="text-xl font-semibold leading-tight tracking-tight text-ink-900">Histórico do clima</h2>
               <p className="mb-3 text-sm text-ink-500">
                 O dia lançado substitui a Open-Meteo no gráfico de São Domingos (SC).
               </p>
@@ -111,7 +111,7 @@ export function AdminPage() {
           ) : null}
           {active === "croqui" ? (
             <section aria-label="Gerenciar parcelas do croqui">
-              <h2 className="text-xl font-extrabold text-ink-900">Gerenciar Parcelas do Croqui</h2>
+              <h2 className="text-xl font-semibold leading-tight tracking-tight text-ink-900">Gerenciar Parcelas do Croqui</h2>
               <p className="mb-3 text-sm text-ink-500">
                 Desenhe o polígono, grave a ficha e a parcela aparece no mapa de satélite do produtor.
               </p>
@@ -120,7 +120,7 @@ export function AdminPage() {
           ) : null}
           {active === "agronomos" ? (
             <section aria-label="Contatos dos agrônomos">
-              <h2 className="text-xl font-extrabold text-ink-900">Agrônomos</h2>
+              <h2 className="text-xl font-semibold leading-tight tracking-tight text-ink-900">Agrônomos</h2>
               <p className="mb-3 text-sm text-ink-500">
                 Os contatos ativos aparecem em Dúvida ao agrônomo e abrem o WhatsApp da parcela.
               </p>
@@ -129,16 +129,11 @@ export function AdminPage() {
           ) : null}
           {active === "admins" && canManageAdmins ? (
             <section aria-label="Gerenciar administradores">
-              <h2 className="text-xl font-extrabold text-ink-900">Administradores</h2>
+              <h2 className="text-xl font-semibold leading-tight tracking-tight text-ink-900">Administradores</h2>
               <p className="mb-3 text-sm text-ink-500">Somente a matrícula 464139 vê e cadastra a equipe.</p>
               <AdminManager />
             </section>
           ) : null}
-          {active === "fenologia" ? null : (
-            <Link to="/" className="block py-4 text-center text-sm font-bold text-leaf-700">
-              Ver a área do produtor
-            </Link>
-          )}
         </div>
       </main>
     </PhoneFrame>

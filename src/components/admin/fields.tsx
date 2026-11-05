@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 export const controlClass =
-  "w-full min-h-11 rounded-2xl border border-leaf-200 bg-white px-3 text-sm text-ink-900 outline-none ring-leaf-500 focus:ring-2";
+  "min-h-11 w-full rounded-lg border border-slate-200/80 bg-white px-3 text-sm font-medium text-ink-900 outline-none transition-all duration-150 hover:border-slate-300 focus:border-leaf-600";
 
 export function Field({
   label,
@@ -16,7 +16,7 @@ export function Field({
 }) {
   return (
     <div>
-      <label htmlFor={htmlFor} className="mb-1 block text-sm font-bold text-ink-900">
+      <label htmlFor={htmlFor} className="mb-1.5 block text-sm font-medium text-ink-700">
         {label}
       </label>
       {children}
@@ -30,7 +30,7 @@ export function SubmitButton({ children, disabled = false }: { children: ReactNo
     <button
       type="submit"
       disabled={disabled}
-      className="min-h-11 w-full rounded-2xl bg-leaf-700 text-sm font-extrabold text-white disabled:opacity-60"
+      className="min-h-11 w-full rounded-lg bg-leaf-800 text-sm font-semibold text-white transition-all duration-150 hover:bg-leaf-700 disabled:opacity-60"
     >
       {children}
     </button>
@@ -39,7 +39,7 @@ export function SubmitButton({ children, disabled = false }: { children: ReactNo
 
 export function Status({ children }: { children: ReactNode }) {
   return (
-    <p className="rounded-2xl bg-leaf-100 px-3 py-3 text-sm font-semibold text-leaf-800" role="status">
+    <p className="rounded-lg border border-leaf-200 bg-leaf-50 px-3 py-3 text-sm font-medium text-leaf-800" role="status">
       {children}
     </p>
   );

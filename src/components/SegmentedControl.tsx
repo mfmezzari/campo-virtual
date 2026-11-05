@@ -29,8 +29,8 @@ export function SegmentedControl<T extends string>({
       role="radiogroup"
       aria-label={label}
       className={cx(
-        "grid rounded-2xl p-1",
-        tone === "dark" ? "bg-black/20" : "bg-leaf-100",
+        "grid rounded-lg border border-slate-200/80 bg-slate-50 p-1",
+        tone === "dark" ? "border-white/10 bg-white/10" : "",
         className,
       )}
       style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }}
@@ -45,14 +45,12 @@ export function SegmentedControl<T extends string>({
             aria-checked={selected}
             onClick={() => onChange(option.value)}
             className={cx(
-              "min-h-10 rounded-xl px-2 py-1.5 text-sm font-semibold transition",
+              "min-h-9 rounded-md px-2 py-1.5 text-sm font-medium transition-all duration-150",
               selected
-                ? tone === "dark"
-                  ? "bg-white text-leaf-800 shadow-sm"
-                  : "bg-leaf-700 text-white shadow-sm"
+                ? "bg-leaf-800 text-white shadow-sm"
                 : tone === "dark"
                   ? "text-white/80 hover:text-white"
-                  : "text-leaf-800 hover:bg-white/70",
+                  : "text-ink-500 hover:bg-slate-50 hover:text-ink-900",
             )}
           >
             <span className="block leading-tight">{option.label}</span>
@@ -68,11 +66,28 @@ export function SegmentedControl<T extends string>({
   );
 }
 
+function FieldLineArt() {
+  return (
+    <svg viewBox="0 0 72 56" className="mx-auto h-14 w-16 text-leaf-800" fill="none" aria-hidden="true">
+      <path d="M12 46h48" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M36 46V26" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M36 34c-8-2-14-9-14-16 8 1 14 7 14 16Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M36 30c8-1 16-7 16-15-9 1-16 7-16 15Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M22 46c1.5-5 5-8 14-8s12.5 3 14 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function EmptyState({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="rounded-3xl border border-dashed border-leaf-300 bg-white px-4 py-10 text-center">
-      <p className="text-base font-bold text-ink-900">{title}</p>
-      <p className="mt-1 text-sm text-ink-500">{children}</p>
+    <div className="rounded-2xl border border-slate-100 bg-white px-6 py-12 text-center">
+      <FieldLineArt />
+      <p className="mt-3 text-sm font-semibold tracking-tight text-ink-900">{title}</p>
+      <p className="mx-auto mt-1 max-w-xs text-sm leading-relaxed text-ink-500">{children}</p>
     </div>
   );
+}
+
+export function SkeletonBlock({ className }: { className?: string }) {
+  return <div className={cx("animate-pulse rounded-lg bg-slate-200/80", className)} />;
 }

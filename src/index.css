@@ -18,8 +18,10 @@ body,
 
 body {
   margin: 0;
-  font-family: Manrope, ui-sans-serif, system-ui, sans-serif;
-  background: #0e1c16;
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  background: #F4F5F0;
+  color: #1F2937;
+  line-height: 1.5;
 }
 
 button,
@@ -29,13 +31,81 @@ textarea {
 }
 
 :focus-visible {
-  outline: 2px solid #f0b429;
+  outline: 2px solid #1E3A2B;
   outline-offset: 2px;
+}
+
+button,
+a {
+  transition: background-color 150ms, border-color 150ms, color 150ms, box-shadow 150ms;
+}
+
+.lucide {
+  stroke-width: 1.75;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  font-family: inherit;
+  background: #163024;
+  z-index: 0;
+}
+
+.leaflet-container img {
+  max-width: none !important;
+  max-height: none !important;
+}
+
+.campo-label,
+.campo-gps {
+  background: transparent !important;
+  border: none !important;
+}
+
+.campo-label {
+  pointer-events: none !important;
+}
+
+.campo-gps-ping {
+  position: absolute;
+  inset: 4px;
+  border-radius: 9999px;
+  background: #1a73e8;
+  opacity: 0.7;
+  animation: campo-ping 1.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.campo-gps-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: #1a73e8;
+  border: 2px solid #fff;
+}
+
+.leaflet-control-attribution {
+  font-size: 9px;
+  line-height: 1.2;
+  max-width: 12rem;
+  background: rgba(255, 255, 255, 0.88) !important;
+}
+
+@keyframes campo-ping {
+  75%,
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
 }
 
 .scroll-area {
   scrollbar-width: thin;
-  scrollbar-color: #c3e0cb transparent;
+  scrollbar-color: #d6d3d1 transparent;
 }
 
 .screen-enter {
@@ -98,7 +168,8 @@ textarea {
   .screen-enter,
   .sheet-enter,
   .live-zoom,
-  .pulse-dot {
+  .pulse-dot,
+  .campo-gps-ping {
     animation: none;
   }
 }

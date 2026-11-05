@@ -17,7 +17,7 @@ export function FieldImage({ src, alt, className }: FieldImageProps) {
         role="img"
         aria-label={alt}
         className={cx(
-          "flex items-center justify-center bg-gradient-to-br from-leaf-800 via-leaf-600 to-leaf-400 text-white",
+          "flex items-center justify-center bg-slate-100 text-ink-300",
           className,
         )}
       >

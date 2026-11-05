@@ -39,15 +39,15 @@ export function ClimaHistoricoForm() {
     <div className="space-y-4">
       <ul className="space-y-2">
         {climaHistorico.map((item) => (
-          <li key={item.id} className="rounded-3xl bg-white p-4 shadow-card">
-            <p className="font-extrabold text-ink-900">{formatDate(item.date)}</p>
+          <li key={item.id} className="rounded-xl bg-white p-4 border border-slate-200/80 shadow-sm">
+            <p className="font-semibold text-ink-900">{formatDate(item.date)}</p>
             <p className="mt-1 text-sm text-ink-700">
               {item.precipitationMm} mm · mín. {item.tempMinC}°C · máx. {item.tempMaxC}°C · {item.humidityPct}%
             </p>
             <button
               type="button"
               onClick={() => removeClimaHistorico(item.id)}
-              className="mt-3 min-h-11 rounded-2xl bg-rose-50 px-3 text-sm font-extrabold text-rose-700"
+              className="mt-3 min-h-11 rounded-2xl bg-rose-50 px-3 text-sm font-semibold text-rose-700"
             >
               Remover do gráfico
             </button>
@@ -55,7 +55,7 @@ export function ClimaHistoricoForm() {
         ))}
       </ul>
       <form className="space-y-3" onSubmit={onSubmit}>
-        <h3 className="text-base font-extrabold text-ink-900">Novo dia</h3>
+        <h3 className="text-base font-semibold text-ink-900">Novo dia</h3>
         <Field label="Data" htmlFor="clima-data">
           <input id="clima-data" className={controlClass} type="date" value={date} onChange={(event) => setDate(event.target.value)} required />
         </Field>

@@ -27,10 +27,10 @@ export function LoginPage() {
   return (
     <PhoneFrame>
       <main className="flex flex-1 flex-col justify-center px-5 py-8">
-        <div className="mb-6 grid h-14 w-14 place-items-center rounded-3xl bg-leaf-800 text-white">
-          <LockKeyhole aria-hidden="true" className="h-7 w-7" />
+        <div className="mb-6 grid h-11 w-11 place-items-center rounded-lg bg-leaf-800 text-white">
+          <LockKeyhole aria-hidden="true" className="h-5 w-5" strokeWidth={1.75} />
         </div>
-        <h1 className="text-2xl font-extrabold text-ink-900">Área DETEC</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-ink-900">Área DETEC</h1>
         <p className="mt-1 text-sm text-ink-500">
           Acesso da equipe técnica. A simulação fica só neste navegador, até a aba ser fechada.
         </p>
@@ -62,7 +62,7 @@ export function LoginPage() {
               {error}
             </p>
           ) : null}
-          <button type="submit" className="min-h-11 w-full rounded-2xl bg-leaf-700 text-sm font-extrabold text-white">
+          <button type="submit" className="min-h-11 w-full rounded-lg bg-leaf-800 text-sm font-semibold text-white transition-all duration-150 hover:bg-leaf-700">
             Entrar
           </button>
         </form>

@@ -39,9 +39,9 @@ export function CroquiTab({ parcelas, culture }: CroquiTabProps) {
   }
 
   return (
-    <section aria-label="Croqui do dia de campo" className="space-y-3 py-4">
+    <section aria-label="Croqui do dia de campo" className="space-y-5 py-5">
       <div>
-        <h1 className="text-xl font-extrabold text-ink-900">Croqui do campo</h1>
+        <h1 className="text-xl font-semibold leading-tight tracking-tight text-ink-900">Croqui do campo</h1>
         <p className="text-sm text-ink-500">
           Soja à esquerda, em verde. Milho à direita, em laranja, com duas parcelas por obtentor. Toque na área para abrir a ficha.
         </p>
@@ -51,7 +51,7 @@ export function CroquiTab({ parcelas, culture }: CroquiTabProps) {
         culture={culture}
         selectedId={selectedId}
         center={CENTRO_DO_CAMPO}
-        zoom={18.5}
+        zoom={18}
         onSelect={openParcela}
       />
       <ul className="sr-only">
@@ -79,12 +79,12 @@ function CroquiDialog({ parcela, onClose }: { parcela: ParcelaCroqui; onClose: (
         role="dialog"
         aria-modal="true"
         aria-labelledby="croqui-titulo"
-        className="sheet-enter relative max-h-[86%] w-full overflow-y-auto rounded-t-[1.75rem] bg-white px-4 pb-6 pt-3 shadow-frame"
+        className="sheet-enter relative max-h-[86%] w-full overflow-y-auto rounded-t-2xl bg-white px-4 pb-6 pt-3 shadow-frame"
       >
         <div className="mb-3 flex items-start justify-between gap-3">
           <span
             className={cx(
-              "mt-1 inline-flex rounded-full px-2.5 py-1 text-xs font-extrabold",
+              "mt-1 inline-flex rounded-full px-2.5 py-1 text-xs font-semibold",
               soja ? "bg-leaf-100 text-leaf-800" : "bg-sun-100 text-sun-700",
             )}
           >
@@ -93,13 +93,13 @@ function CroquiDialog({ parcela, onClose }: { parcela: ParcelaCroqui; onClose: (
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-11 items-center gap-1 rounded-2xl bg-leaf-50 px-3 text-sm font-extrabold text-leaf-800"
+            className="inline-flex h-11 items-center gap-1 rounded-2xl bg-leaf-50 px-3 text-sm font-semibold text-leaf-800"
           >
             <X className="h-4 w-4" aria-hidden="true" />
             Fechar
           </button>
         </div>
-        <h2 id="croqui-titulo" className="text-xl font-extrabold leading-tight text-ink-900">
+        <h2 id="croqui-titulo" className="text-xl font-semibold leading-tight text-ink-900">
           {croquiTitle(parcela)}
         </h2>
         <p className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-ink-700">{parcela.descricaoTecnica}</p>

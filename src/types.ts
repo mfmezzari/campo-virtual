@@ -214,4 +214,5 @@ export type ActiveSheet =
   | { type: "notifications" }
   | { type: "doubt"; updateId: string }
   | { type: "plot"; plotId: string }
+  | { type: "report" }
   | null;

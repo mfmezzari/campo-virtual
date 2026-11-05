@@ -127,8 +127,8 @@ export function CroquiManager() {
       </div>
 
       {mode?.kind === "create" ? (
-        <form className="space-y-3 rounded-3xl bg-white p-3 shadow-card" onSubmit={onCreate}>
-          <h3 className="font-extrabold text-ink-900">Nova parcela</h3>
+        <form className="space-y-3 rounded-xl bg-white p-3 border border-slate-200/80 shadow-sm" onSubmit={onCreate}>
+          <h3 className="font-semibold text-ink-900">Nova parcela</h3>
           <PointTools
             count={points.length}
             onUndo={() => setPoints((current) => current.slice(0, -1))}
@@ -165,8 +165,8 @@ export function CroquiManager() {
           </button>
         </form>
       ) : mode?.kind === "limites" ? (
-        <form className="space-y-3 rounded-3xl bg-white p-3 shadow-card" onSubmit={onLimites}>
-          <h3 className="font-extrabold text-ink-900">Atualizar limites</h3>
+        <form className="space-y-3 rounded-xl bg-white p-3 border border-slate-200/80 shadow-sm" onSubmit={onLimites}>
+          <h3 className="font-semibold text-ink-900">Atualizar limites</h3>
           <PointTools
             count={points.length}
             onUndo={() => setPoints((current) => current.slice(0, -1))}
@@ -188,7 +188,7 @@ export function CroquiManager() {
           </button>
         </form>
       ) : (
-        <button type="button" onClick={startCreate} className="min-h-11 w-full rounded-2xl bg-leaf-700 text-sm font-extrabold text-white">
+        <button type="button" onClick={startCreate} className="min-h-11 w-full rounded-2xl bg-leaf-700 text-sm font-semibold text-white">
           Nova parcela
         </button>
       )}
@@ -253,16 +253,16 @@ function PointTools({
   return (
     <div className="space-y-2">
       <p className="text-sm text-ink-500">Toque no mapa para marcar os cantos do polígono. São necessários pelo menos 3 pontos.</p>
-      <p className="text-sm font-extrabold text-ink-900">{count} ponto{count === 1 ? "" : "s"} marcado{count === 1 ? "" : "s"}</p>
+      <p className="text-sm font-semibold text-ink-900">{count} ponto{count === 1 ? "" : "s"} marcado{count === 1 ? "" : "s"}</p>
       <div className="grid grid-cols-2 gap-2">
-        <button type="button" onClick={onUndo} className="h-11 rounded-2xl bg-leaf-50 text-sm font-extrabold text-leaf-800">
+        <button type="button" onClick={onUndo} className="h-11 rounded-2xl bg-leaf-50 text-sm font-semibold text-leaf-800">
           Desfazer ponto
         </button>
-        <button type="button" onClick={onClear} className="h-11 rounded-2xl bg-leaf-50 text-sm font-extrabold text-leaf-800">
+        <button type="button" onClick={onClear} className="h-11 rounded-2xl bg-leaf-50 text-sm font-semibold text-leaf-800">
           Limpar
         </button>
       </div>
-      <button type="button" onClick={onGps} className="h-11 w-full rounded-2xl bg-leaf-50 text-sm font-extrabold text-leaf-800">
+      <button type="button" onClick={onGps} className="h-11 w-full rounded-2xl bg-leaf-50 text-sm font-semibold text-leaf-800">
         Marcar minha posição
       </button>
     </div>
@@ -300,13 +300,13 @@ function ParcelaGroup({
 }) {
   return (
     <section className="space-y-2">
-      <h3 className="text-sm font-extrabold uppercase tracking-wide text-ink-500">{title}</h3>
+      <h3 className="text-sm font-semibold uppercase tracking-wide text-ink-500">{title}</h3>
       <ul className="space-y-2">
         {items.map((item) => {
           const editing = mode?.kind === "descricao" && mode.id === item.id;
           return (
-            <li key={item.id} className="rounded-3xl bg-white p-3 shadow-card">
-              <p className="font-extrabold text-ink-900">{croquiTitle(item)}</p>
+            <li key={item.id} className="rounded-xl bg-white p-3 border border-slate-200/80 shadow-sm">
+              <p className="font-semibold text-ink-900">{croquiTitle(item)}</p>
               {editing ? (
                 <form className="mt-2 space-y-2" onSubmit={onSaveDescricao}>
                   <label htmlFor={`croqui-${item.id}`} className="text-sm font-bold text-ink-900">
@@ -329,18 +329,18 @@ function ParcelaGroup({
                 <>
                   <p className="mt-1 line-clamp-3 text-sm text-ink-500">{item.descricaoTecnica}</p>
                   <div className="mt-2 flex flex-wrap gap-2">
-                    <button type="button" onClick={() => onStartDescricao(item)} className="inline-flex h-10 items-center rounded-2xl bg-leaf-50 px-3 text-sm font-extrabold text-leaf-800">
+                    <button type="button" onClick={() => onStartDescricao(item)} className="inline-flex h-10 items-center rounded-2xl bg-leaf-50 px-3 text-sm font-semibold text-leaf-800">
                       Editar descrição
                     </button>
-                    <button type="button" onClick={() => onStartLimites(item)} className="inline-flex h-10 items-center rounded-2xl bg-leaf-50 px-3 text-sm font-extrabold text-leaf-800">
+                    <button type="button" onClick={() => onStartLimites(item)} className="inline-flex h-10 items-center rounded-2xl bg-leaf-50 px-3 text-sm font-semibold text-leaf-800">
                       Atualizar limites
                     </button>
                     {pendingDelete === item.id ? (
-                      <button type="button" onClick={() => onDelete(item.id)} className="inline-flex h-10 items-center rounded-2xl bg-orange-100 px-3 text-sm font-extrabold text-orange-800">
+                      <button type="button" onClick={() => onDelete(item.id)} className="inline-flex h-10 items-center rounded-2xl bg-orange-100 px-3 text-sm font-semibold text-orange-800">
                         Confirmar exclusão
                       </button>
                     ) : (
-                      <button type="button" onClick={() => onAskDelete(item.id)} className="inline-flex h-10 items-center rounded-2xl bg-leaf-50 px-3 text-sm font-extrabold text-ink-700">
+                      <button type="button" onClick={() => onAskDelete(item.id)} className="inline-flex h-10 items-center rounded-2xl bg-leaf-50 px-3 text-sm font-semibold text-ink-700">
                         Excluir
                       </button>
                     )}

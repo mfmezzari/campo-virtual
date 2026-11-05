@@ -37,9 +37,11 @@ export function PhenologyView({ initialCulture, currentStageByCulture }: Phenolo
   return (
     <section aria-label="Estádios fenológicos" className="space-y-4 py-4">
       <div>
-        <h1 className="text-xl font-extrabold text-ink-900">Estádios fenológicos</h1>
+        <h1 className="text-xl font-semibold leading-tight tracking-tight text-ink-900">Estádios fenológicos</h1>
         <p className="text-sm text-ink-500">
-          {culture === "soja" ? "Escala Fehr & Caviness" : "Escala Ritchie & Hanway"}
+          {culture === "soja"
+            ? "Fehr e Caviness (1977), conforme a Embrapa. A folha conta quando os bordos da folha de cima não mais se tocam."
+            : "Ritchie, Hanway e Benson (1993), conforme a Kansas State University. Conta-se a folha mais alta com colar visível."}
         </p>
       </div>
 
@@ -48,35 +50,35 @@ export function PhenologyView({ initialCulture, currentStageByCulture }: Phenolo
         value={culture}
         onChange={setCulture}
         options={[
-          { value: "soja", label: "Soja", hint: "Fehr & Caviness" },
-          { value: "milho", label: "Milho", hint: "Ritchie & Hanway" },
+          { value: "soja", label: "Soja", hint: "Embrapa" },
+          { value: "milho", label: "Milho", hint: "Kansas State" },
         ]}
       />
 
-      <div className="rounded-3xl bg-leaf-800 p-4 text-white">
-        <p className="text-xs font-bold uppercase tracking-wide text-white/70">Estádio atual do campo</p>
-        <p className="mt-1 text-lg font-extrabold">
+      <div className="rounded-xl border border-slate-200/80 bg-white p-4 shadow-sm">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-leaf-700">Estádio atual do campo</p>
+        <p className="mt-1 text-lg font-semibold tracking-tight text-ink-900">
           {culture === "soja" ? "Soja" : "Milho"} atualmente em {current.code}
         </p>
-        <p className="text-sm text-white/80">{current.name}</p>
+        <p className="text-sm text-ink-500">{current.name}</p>
         <div
-          className="mt-3 h-2 overflow-hidden rounded-full bg-white/20"
+          className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-100"
           role="progressbar"
           aria-valuemin={1}
           aria-valuemax={stages.length}
           aria-valuenow={currentIndex + 1}
           aria-label={`Progresso até ${current.code}`}
         >
-          <div className="h-full rounded-full bg-sun-400" style={{ width: `${progress}%` }} />
+          <div className="h-full rounded-full bg-leaf-700" style={{ width: `${progress}%` }} />
         </div>
-        <p className="mt-2 text-xs font-semibold text-white/70">
+        <p className="mt-2 text-xs font-medium text-ink-500">
           {currentIndex + 1} de {stages.length} estádios da escala
         </p>
       </div>
 
       <div>
         <div className="mb-2 flex items-end justify-between">
-          <h2 className="text-sm font-extrabold text-ink-900">Deslize para comparar os estádios</h2>
+          <h2 className="text-sm font-semibold text-ink-900">Deslize para comparar os estádios</h2>
         </div>
         <div ref={scrollerRef} className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2">
           {stages.map((stage) => {
@@ -86,7 +88,7 @@ export function PhenologyView({ initialCulture, currentStageByCulture }: Phenolo
                 key={stage.id}
                 ref={isCurrent ? currentRef : undefined}
                 className={cx(
-                  "w-[84%] shrink-0 snap-center overflow-hidden rounded-3xl bg-white shadow-card",
+                  "w-[84%] shrink-0 snap-center overflow-hidden rounded-xl bg-white border border-slate-200/80 shadow-sm",
                   isCurrent && "ring-2 ring-sun-400",
                 )}
               >
@@ -96,23 +98,23 @@ export function PhenologyView({ initialCulture, currentStageByCulture }: Phenolo
                     alt={`Ilustração do estádio ${stage.code}, ${stage.name}`}
                     className="h-40 w-full object-cover"
                   />
-                  <span className="absolute left-3 top-3 rounded-full bg-ink-900/80 px-2.5 py-1 text-sm font-extrabold text-white">
+                  <span className="absolute left-3 top-3 rounded-full bg-ink-900/80 px-2.5 py-1 text-sm font-semibold text-white">
                     {stage.code}
                   </span>
                   {isCurrent ? (
-                    <span className="absolute right-3 top-3 rounded-full bg-sun-400 px-2.5 py-1 text-xs font-extrabold text-ink-900">
+                    <span className="absolute right-3 top-3 rounded-full bg-sun-400 px-2.5 py-1 text-xs font-semibold text-ink-900">
                       Atual
                     </span>
                   ) : null}
                 </div>
                 <div className="space-y-3 px-4 py-4">
-                  <h3 className="text-base font-extrabold text-ink-900">{stage.name}</h3>
+                  <h3 className="text-base font-semibold text-ink-900">{stage.name}</h3>
                   <div>
-                    <p className="text-[11px] font-extrabold uppercase tracking-wide text-leaf-700">O que observar</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-wide text-leaf-700">O que observar</p>
                     <p className="mt-1 text-sm leading-relaxed text-ink-700">{stage.observe}</p>
                   </div>
                   <div>
-                    <p className="text-[11px] font-extrabold uppercase tracking-wide text-sun-700">Recomendação</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-wide text-sun-700">Recomendação</p>
                     <p className="mt-1 text-sm leading-relaxed text-ink-700">{stage.recommendation}</p>
                   </div>
                 </div>

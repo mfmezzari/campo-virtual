@@ -19,9 +19,9 @@ export function ManejoList({ applications, culture }: ManejoListProps) {
   const [openId, setOpenId] = useState<string | null>(visible[0]?.id ?? null);
 
   return (
-    <section aria-label="Manejos e aplicações" className="space-y-3 py-4">
+    <section aria-label="Manejos e aplicações" className="space-y-5 py-5">
       <div>
-        <h1 className="text-xl font-extrabold text-ink-900">Manejos e aplicações</h1>
+        <h1 className="text-xl font-semibold leading-tight tracking-tight text-ink-900">Manejos e aplicações</h1>
         <p className="text-sm text-ink-500">Princípio ativo e dose em g/ha, do mais recente ao mais antigo.</p>
       </div>
       {visible.length === 0 ? (
@@ -43,7 +43,7 @@ export function ManejoList({ applications, culture }: ManejoListProps) {
                 ? `Parcela ${joined}`
                 : `Parcelas ${joined}`;
             return (
-              <article key={item.id} className="overflow-hidden rounded-3xl bg-white shadow-card">
+              <article key={item.id} className="overflow-hidden rounded-xl bg-white border border-slate-200/80 shadow-sm">
                 <h2>
                   <button
                     type="button"
@@ -54,10 +54,10 @@ export function ManejoList({ applications, culture }: ManejoListProps) {
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <span className="rounded-full bg-leaf-100 px-2 py-1 text-[11px] font-extrabold uppercase tracking-wide text-leaf-800">
+                        <span className="rounded-full bg-leaf-100 px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-leaf-800">
                           {item.stageLabel}
                         </span>
-                        <p className="mt-2 text-base font-extrabold leading-tight text-ink-900">{item.target}</p>
+                        <p className="mt-2 text-base font-semibold leading-tight text-ink-900">{item.target}</p>
                         <p className="mt-1 text-sm font-semibold text-ink-700">{item.activeIngredient}</p>
                         <p className="mt-1 text-xs font-semibold text-ink-500">
                           {formatDateTime(item.date)} · {plotLabel}
@@ -99,7 +99,7 @@ export function ManejoList({ applications, culture }: ManejoListProps) {
                         </thead>
                         <tbody>
                           <tr>
-                            <th scope="row" className="py-2 pr-2 font-extrabold text-ink-900">
+                            <th scope="row" className="py-2 pr-2 font-semibold text-ink-900">
                               {item.activeIngredient}
                             </th>
                             <td className="py-2 pr-2 text-ink-700">{formatGramsPerHa(item.doseGramsPerHa)}</td>

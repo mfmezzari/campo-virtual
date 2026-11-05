@@ -1,19 +1,36 @@
 import { useEffect } from "react";
-import type { CultureFilter, FeedUpdate } from "../types";
+import type { CultureFilter, FeedUpdate, TabId } from "../types";
 import { getPlot } from "../data/mock";
+import { CampoOverview } from "./CampoOverview";
 import { EmptyState } from "./SegmentedControl";
 import { FeedCard } from "./FeedCard";
+import { QuickActions } from "./QuickActions";
 
 interface FeedScreenProps {
   updates: FeedUpdate[];
   culture: CultureFilter;
   likedIds: Set<string>;
   highlightId: string | null;
+  sojaStage: string;
+  milhoStage: string;
+  valuesVisible: boolean;
   onToggleLike: (id: string) => void;
   onAsk: (id: string) => void;
+  onOpenTab: (tab: Exclude<TabId, "phenology">) => void;
 }
 
-export function FeedScreen({ updates, culture, likedIds, highlightId, onToggleLike, onAsk }: FeedScreenProps) {
+export function FeedScreen({
+  updates,
+  culture,
+  likedIds,
+  highlightId,
+  sojaStage,
+  milhoStage,
+  valuesVisible,
+  onToggleLike,
+  onAsk,
+  onOpenTab,
+}: FeedScreenProps) {
   const visible = updates.filter(
     (update) => culture === "todas" || update.culture === culture || update.culture === "soja e milho",
   );
@@ -24,10 +41,12 @@ export function FeedScreen({ updates, culture, likedIds, highlightId, onToggleLi
   }, [highlightId, culture]);
 
   return (
-    <section aria-label="Linha do tempo técnica" className="space-y-3 py-4">
+    <section aria-label="Linha do tempo técnica" className="space-y-6 py-4">
+      <CampoOverview sojaStage={sojaStage} milhoStage={milhoStage} valuesVisible={valuesVisible} />
+      <QuickActions onOpenTab={onOpenTab} />
       <div>
-        <h1 className="text-xl font-extrabold text-ink-900">Linha do tempo</h1>
-        <p className="text-sm text-ink-500">Atualizações técnicas do talhão, da mais recente para a mais antiga.</p>
+        <h2 className="text-base font-semibold leading-tight tracking-tight text-ink-900">Atividades</h2>
+        <p className="mt-0.5 text-sm text-ink-500">Vistorias, manejos e atualizações do ensaio.</p>
       </div>
       {visible.length === 0 ? (
         <EmptyState title="Nenhuma atualização nesta cultura">

@@ -187,7 +187,7 @@ export const feedUpdates: FeedUpdate[] = [
     datetime: "2026-10-31T09:05:00",
     image: photos.cornField,
     tags: ["#Milho", "#R1", "#P05"],
-    text: "Embonesamento uniforme na P3707. Estilo-estigmas viáveis e pendão com pólen soltando no período da manhã. Sem estresse hídrico aparente.",
+    text: "Embonecamento uniforme na P3707. Estilo-estigmas viáveis e pendão com pólen soltando no período da manhã. Sem estresse hídrico aparente.",
     likes: 9,
   },
   {
@@ -414,35 +414,47 @@ function stage(
   };
 }
 
+/**
+ * Soja: Fehr e Caviness (1977), na redação da Embrapa
+ * (Ageitec e “500 perguntas, 500 respostas — Soja”).
+ * Uma folha está completamente desenvolvida quando as bordas dos
+ * folíolos da folha do nó acima não mais se tocam.
+ *
+ * Milho: Ritchie, Hanway e Benson (1993), como publicado pela
+ * Kansas State University. O estádio vegetativo é o número de
+ * folhas com colar visível; a primeira folha tem ponta arredondada.
+ */
 export const phenologyStages: PhenologyStage[] = [
-  stage("soja", "VE", "Emergência", "Cotilédones acima da superfície do solo.", "Conferir estande inicial e replantio só onde a falha passar de 30 cm.", sojaImages[0]),
-  stage("soja", "VC", "Cotilédone", "Folhas unifolioladas abertas e bordos não mais se tocando.", "Monitorar lagarta-rosca e vaquinha nas bordaduras.", sojaImages[0]),
-  stage("soja", "V1", "Primeiro nó", "Primeiro trifólio completamente desenvolvido.", "Avaliar fitotoxicidade de residual e população efetiva.", sojaImages[1]),
-  stage("soja", "V2", "Segundo nó", "Dois trifólios expandidos.", "Janela segura para corrigir plantas daninhas de folha estreita.", sojaImages[1]),
-  stage("soja", "V3", "Terceiro nó", "Três nós vegetativos com trifólio aberto.", "Definir a necessidade de pós-emergente antes do fechamento.", sojaImages[2]),
-  stage("soja", "V4", "Quarto nó", "Quatro trifólios expandidos e entrelinha ainda visível.", "Intensificar o pano-de-batida para vaquinha e torrãozinho.", sojaImages[1]),
-  stage("soja", "V6", "Sexto nó", "Seis nós vegetativos. A planta acelera o dossel.", "Acompanhar o fechamento e a primeira detecção de ferrugem na região.", sojaImages[2]),
-  stage("soja", "R1", "Início do florescimento", "Uma flor aberta em qualquer nó da haste principal.", "Não atrasar a proteção fungicida se o molhamento foliar for frequente.", sojaImages[2]),
-  stage("soja", "R2", "Florescimento pleno", "Flor aberta em um dos dois últimos nós com folha desenvolvida.", "Primeira aplicação do programa preventivo de doenças.", sojaImages[3]),
-  stage("soja", "R3", "Início da formação de vagens", "Vagem com 5 mm em um dos quatro últimos nós.", "Reforçar o controle de percevejo e proteger o baixeiro.", sojaImages[4]),
-  stage("soja", "R4", "Vagem formada", "Vagem com 2 cm em um dos quatro últimos nós.", "Manter o intervalo de fungicida e avaliar retenção de vagens.", sojaImages[4]),
-  stage("soja", "R5", "Enchimento de grãos", "Grão com 3 mm em uma vagem dos quatro últimos nós.", "Atenção a percevejo, que passa a picar o grão em formação.", sojaImages[5]),
-  stage("soja", "R6", "Grão cheio", "Vagem com grãos verdes preenchendo a cavidade.", "Evitar aplicações desnecessárias; o ganho de peso já está definido.", sojaImages[5]),
-  stage("soja", "R7", "Início da maturação", "Uma vagem normal na haste principal atingiu a cor madura.", "Planejar dessecação só com uniformidade e umidade de grão adequadas.", sojaImages[3]),
-  stage("soja", "R8", "Maturação plena", "95% das vagens com cor madura.", "Colher assim que a umidade permitir, para reduzir abertura de vagem.", sojaImages[3]),
-  stage("milho", "VE", "Emergência", "Coleóptilo visível na superfície.", "Contar plantas em 10 metros e marcar falhas para o estande final.", milhoImages[0]),
-  stage("milho", "V1", "Primeira folha", "Primeira folha com colar visível.", "Avaliar pragas de solo e corte na base do colmo.", milhoImages[0]),
-  stage("milho", "V2", "Segunda folha", "Duas folhas com colar visível.", "Confirmar seletividade do herbicida usado na dessecação.", milhoImages[1]),
-  stage("milho", "V4", "Quarta folha", "Quatro colares visíveis. O ponto de crescimento ainda está abaixo do solo.", "Última janela confortável para corrigir adubação de arranque.", milhoImages[0]),
-  stage("milho", "V6", "Sexta folha", "Seis colares visíveis. Define-se o número potencial de fileiras.", "Posicionar a cobertura nitrogenada e o pós-emergente.", milhoImages[1]),
-  stage("milho", "V8", "Oitava folha", "Oito colares visíveis e crescimento rápido do colmo.", "Monitorar lagarta-do-cartucho antes do cartucho se fechar.", milhoImages[2]),
-  stage("milho", "VT", "Pendoamento", "Último ramo do pendão visível e antes dos estilo-estigmas.", "Garantir pólen viável e atenção à cigarrinha se houver tiguera.", milhoImages[2]),
-  stage("milho", "R1", "Embonesamento", "Estilo-estigmas visíveis fora da espiga.", "Polinização em curso. Estresse hídrico agora reduz grãos na ponta.", milhoImages[3]),
-  stage("milho", "R2", "Bolha d'água", "Grãos brancos e com fluido claro.", "Avaliar fecundação: grãos não fecundados ficam sem volume.", milhoImages[3]),
-  stage("milho", "R3", "Grão leitoso", "Grãos amarelos com fluído leitoso.", "Acompanhar doenças foliares que encurtam o enchimento.", milhoImages[2]),
-  stage("milho", "R4", "Grão pastoso", "Consistência pastosa e acúmulo intenso de amido.", "Manter o stay-green; desfolha agora pesa no peso de mil grãos.", milhoImages[4]),
-  stage("milho", "R5", "Formação de dente", "Dente visível no topo da maioria dos grãos.", "A linha de leite indica o quanto ainda falta para a maturidade.", milhoImages[4]),
-  stage("milho", "R6", "Maturidade fisiológica", "Camada preta formada na base do grão.", "Aguardar a perda de umidade de campo para a colheita.", milhoImages[1]),
+  stage("soja", "VE", "Emergência", "Cotilédones acima da superfície do solo, formando ângulo de 90° ou mais com o hipocótilo.", "Conferir a emergência e o estande assim que a linha fechar.", sojaImages[0]),
+  stage("soja", "VC", "Cotilédone", "Cotilédones completamente abertos. No campo, as bordas das folhas unifolioladas não mais se tocam.", "Ainda é cedo para contar trifólios: o critério deste estádio é o par unifoliolado.", sojaImages[0]),
+  stage("soja", "V1", "Primeiro nó", "Folhas unifolioladas completamente desenvolvidas: os bordos da primeira folha trifoliolada não mais se tocam.", "O primeiro trifólio ainda não está completamente desenvolvido neste estádio.", sojaImages[1]),
+  stage("soja", "V2", "Segundo nó", "Primeira folha trifoliolada completamente desenvolvida.", "A contagem sobe um nó a cada trifólio cuja folha de cima já abriu os bordos.", sojaImages[1]),
+  stage("soja", "V3", "Terceiro nó", "Segunda folha trifoliolada completamente desenvolvida.", "Há dois trifólios desenvolvidos acima do nó unifoliolado, não três.", sojaImages[2]),
+  stage("soja", "V4", "Quarto nó", "Terceira folha trifoliolada completamente desenvolvida.", "Conferir nós na haste principal, de baixo para cima, a partir do nó unifoliolado.", sojaImages[1]),
+  stage("soja", "V5", "Quinto nó", "Quarta folha trifoliolada completamente desenvolvida.", "A escala segue em V6, V7 e assim por diante; não há salto de número.", sojaImages[2]),
+  stage("soja", "V6", "Sexto nó", "Quinta folha trifoliolada completamente desenvolvida.", "Depois de V6 a contagem continua: Vn é o número de nós acima do nó cotiledonar com folha completamente desenvolvida.", sojaImages[2]),
+  stage("soja", "R1", "Início do florescimento", "Uma flor aberta em qualquer nó da haste principal.", "A partir daqui o estádio reprodutivo descreve a planta, mesmo que os nós vegetativos continuem aumentando.", sojaImages[2]),
+  stage("soja", "R2", "Florescimento pleno", "Uma flor aberta em um dos dois últimos nós da haste com folha completamente desenvolvida.", "Os dois nós de referência são os superiores que já têm folha desenvolvida.", sojaImages[3]),
+  stage("soja", "R3", "Início da formação da vagem", "Vagem com 5 mm de comprimento em um dos quatro últimos nós da haste com folha completamente desenvolvida.", "Medir a vagem nos quatro nós superiores com folha desenvolvida, não em qualquer nó.", sojaImages[4]),
+  stage("soja", "R4", "Vagem completamente desenvolvida", "Vagem com 2 cm de comprimento em um dos quatro últimos nós da haste com folha completamente desenvolvida.", "O critério é o comprimento da vagem, de 2 cm, nesses quatro nós.", sojaImages[4]),
+  stage("soja", "R5", "Início do enchimento do grão", "Grão com 3 mm de comprimento em uma vagem de um dos quatro últimos nós da haste com folha completamente desenvolvida.", "O grão de 3 mm marca o início do enchimento, ainda nos quatro nós superiores.", sojaImages[5]),
+  stage("soja", "R6", "Grão cheio", "Vagem com grãos verdes preenchendo a cavidade, em um dos quatro últimos nós da haste com folha completamente desenvolvida.", "A vagem de referência continua sendo a dos quatro nós superiores.", sojaImages[5]),
+  stage("soja", "R7", "Início da maturação", "Uma vagem normal na haste principal atingiu a coloração de madura.", "Uma única vagem madura na haste principal basta para caracterizar R7.", sojaImages[3]),
+  stage("soja", "R8", "Maturação plena", "95% das vagens atingiram a coloração de madura.", "A escala termina quando 95% das vagens estão maduras, não quando o grão atinge a umidade de colheita.", sojaImages[3]),
+  stage("milho", "VE", "Emergência", "Coleóptilo visível acima do solo. Nenhuma folha está completamente desenvolvida.", "A emergência é o coleóptilo na superfície, antes do primeiro colar foliar.", milhoImages[0]),
+  stage("milho", "V1", "Primeira folha", "Uma folha com colar visível. A primeira folha tem a ponta arredondada e é a única com esse formato.", "O ponto de crescimento permanece abaixo do solo até o fim de V5.", milhoImages[0]),
+  stage("milho", "V2", "Segunda folha", "Duas folhas com colar visível. Folha ainda enrolada, sem o colar exposto, não entra na conta.", "Conte de baixo para cima, a partir da folha de ponta arredondada.", milhoImages[1]),
+  stage("milho", "V4", "Quarta folha", "Quatro folhas com colar visível.", "O ponto de crescimento ainda está abaixo da superfície neste estádio.", milhoImages[0]),
+  stage("milho", "V6", "Sexta folha", "Seis folhas com colar visível. O ponto de crescimento passa a ficar acima do solo.", "Entre V6 e V10 define-se o número potencial de fileiras da espiga. A primeira folha pode já ter senescido: ela continua na conta.", milhoImages[1]),
+  stage("milho", "V8", "Oitava folha", "Oito folhas com colar visível. O estádio vegetativo é sempre a folha mais alta com colar exposto.", "V3, V5, V7 e V9 existem e seguem a mesma regra do colar; a escala não pula esses números.", milhoImages[2]),
+  stage("milho", "V10", "Décima folha", "Dez folhas com colar visível. Os brotos de espiga já podem ser vistos e a formação do pendão começa.", "Até aqui o ritmo típico é de cerca de 2 a 3 dias por folha, segundo a Kansas State.", milhoImages[2]),
+  stage("milho", "VT", "Pendoamento", "Pendão completamente estendido e estilo-estigmas ainda não visíveis. Em geral dura 2 a 3 dias antes de R1.", "Todas as folhas da planta já estão visíveis neste estádio.", milhoImages[2]),
+  stage("milho", "R1", "Embonecamento", "Estilo-estigmas visíveis fora das palhas. O grão de pólen leva cerca de 24 horas para fecundar o óvulo.", "Estresse e falta de umidade secam o estilo-estigma e limitam a fecundação.", milhoImages[3]),
+  stage("milho", "R2", "Bolha", "Grãos pequenos e brancos, com fluido claro. Os estilo-estigmas escurecem e os grãos têm cerca de 85% de água.", "Grão sem volume neste ponto indica óvulo não fecundado.", milhoImages[3]),
+  stage("milho", "R3", "Grão leitoso", "Grãos amarelados por fora e com fluido leitoso, pelo acúmulo de amido.", "O acúmulo de matéria seca está acelerado; estresse neste ponto limita o tamanho do grão.", milhoImages[2]),
+  stage("milho", "R4", "Grão pastoso", "O amido do grão engrossa e deixa a consistência leitosa. A espiga fica mais amarela e o sabugo começa a avermelhar.", "Deste ponto em diante o estresse pesa no peso do grão, não mais no número.", milhoImages[4]),
+  stage("milho", "R5", "Dente", "A maioria dos grãos está dentada. No início do estádio a umidade fica em torno de 55%, e o amido endurece do topo em direção ao sabugo.", "A linha entre amido duro e amido pastoso, a linha de leite, desce em direção ao sabugo.", milhoImages[4]),
+  stage("milho", "R6", "Maturidade fisiológica", "Camada preta formada na base do grão. A matéria seca atingiu o máximo e a umidade inicial fica em torno de 30% a 35%.", "A camada preta encerra o enchimento. A perda de umidade até a colheita ocorre depois deste estádio.", milhoImages[1]),
 ];
 
 export const currentStageByCulture: Record<Culture, string> = {

@@ -60,18 +60,18 @@ export function AgronomoManager() {
     <div className="space-y-4">
       <ul className="space-y-2">
         {agronomos.map((contato) => (
-          <li key={contato.id} className="rounded-3xl bg-white p-4 shadow-card">
-            <p className="font-extrabold text-ink-900">{contato.nome}</p>
+          <li key={contato.id} className="rounded-xl bg-white p-4 border border-slate-200/80 shadow-sm">
+            <p className="font-semibold text-ink-900">{contato.nome}</p>
             <p className="text-sm text-ink-700">{contato.especialidade}</p>
             <p className="mt-1 text-sm font-semibold text-ink-500">{formatWhatsapp(contato.whatsapp)}</p>
-            <p className="mt-1 text-xs font-extrabold uppercase tracking-wide text-leaf-800">
+            <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-leaf-800">
               {contato.ativo ? "Ativo no feed" : "Oculto no feed"}
             </p>
             <div className="mt-3 grid grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => startEdit(contato)}
-                className="min-h-11 rounded-2xl bg-leaf-50 text-sm font-extrabold text-leaf-800"
+                className="min-h-11 rounded-2xl bg-leaf-50 text-sm font-semibold text-leaf-800"
               >
                 Editar
               </button>
@@ -83,7 +83,7 @@ export function AgronomoManager() {
                   setSaved("Contato removido.");
                   setError("");
                 }}
-                className="min-h-11 rounded-2xl bg-rose-50 text-sm font-extrabold text-rose-700"
+                className="min-h-11 rounded-2xl bg-rose-50 text-sm font-semibold text-rose-700"
               >
                 Remover
               </button>
@@ -93,7 +93,7 @@ export function AgronomoManager() {
       </ul>
 
       <form className="space-y-3" onSubmit={onSubmit}>
-        <h3 className="text-base font-extrabold text-ink-900">
+        <h3 className="text-base font-semibold text-ink-900">
           {editingId ? "Editar contato" : "Novo contato"}
         </h3>
         <Field label="Nome" htmlFor="agro-nome">

@@ -1,4 +1,4 @@
-import { Bell, Leaf } from "lucide-react";
+import { Bell, Eye, EyeOff } from "lucide-react";
 import type { CultureFilter } from "../types";
 import { fieldMeta } from "../data/mock";
 import { SegmentedControl } from "./SegmentedControl";
@@ -6,8 +6,10 @@ import { SegmentedControl } from "./SegmentedControl";
 interface HeaderProps {
   culture: CultureFilter;
   unreadCount: number;
+  valuesVisible: boolean;
   onCultureChange: (culture: CultureFilter) => void;
   onOpenNotifications: () => void;
+  onToggleValues: () => void;
 }
 
 const cultureOptions: Array<{ value: CultureFilter; label: string }> = [
@@ -16,34 +18,68 @@ const cultureOptions: Array<{ value: CultureFilter; label: string }> = [
   { value: "milho", label: "Milho" },
 ];
 
-export function Header({ culture, unreadCount, onCultureChange, onOpenNotifications }: HeaderProps) {
+function greeting(now = new Date()) {
+  const hour = now.getHours();
+  if (hour < 12) return "Bom dia";
+  if (hour < 18) return "Boa tarde";
+  return "Boa noite";
+}
+
+const iconButton =
+  "grid h-8 w-8 place-items-center rounded-full text-ink-900 transition-all duration-200 hover:bg-white active:scale-95";
+
+export function Header({
+  culture,
+  unreadCount,
+  valuesVisible,
+  onCultureChange,
+  onOpenNotifications,
+  onToggleValues,
+}: HeaderProps) {
+  const VisibilityIcon = valuesVisible ? Eye : EyeOff;
+
   return (
-    <header className="z-20 bg-leaf-800 px-4 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))] text-white">
-      <div className="flex items-start gap-3">
-        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-leaf-600">
-          <Leaf aria-hidden="true" className="h-6 w-6" />
+    <header className="z-20 bg-[#F4F5F0] px-5 pb-3 pt-[max(0.85rem,env(safe-area-inset-top))]">
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex min-w-0 items-center gap-3">
+          <div
+            className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-emerald-900/10 bg-leaf-800 text-sm font-semibold text-white"
+            aria-hidden="true"
+          >
+            CV
+          </div>
+          <div className="min-w-0">
+            <p className="truncate text-[12px] font-medium leading-none text-ink-500">{fieldMeta.title}</p>
+            <h1 className="mt-1 text-[17px] font-semibold leading-none tracking-tight text-ink-900">{greeting()}</h1>
+          </div>
         </div>
-        <div className="min-w-0 flex-1">
-          <p className="text-base font-extrabold leading-tight">{fieldMeta.title}</p>
-          <p className="mt-0.5 text-[11px] font-medium leading-snug text-white/75">{fieldMeta.subtitle}</p>
+        <div className="flex shrink-0 items-center gap-0.5">
+          <button
+            type="button"
+            onClick={onToggleValues}
+            aria-pressed={valuesVisible}
+            aria-label={valuesVisible ? "Ocultar métricas do talhão" : "Mostrar métricas do talhão"}
+            className={iconButton}
+          >
+            <VisibilityIcon className="h-[18px] w-[18px]" strokeWidth={1.5} />
+          </button>
+          <button
+            type="button"
+            onClick={onOpenNotifications}
+            className={`${iconButton} relative`}
+            aria-label={unreadCount > 0 ? `Notificações, ${unreadCount} atividades sem leitura` : "Notificações"}
+          >
+            <Bell className="h-[18px] w-[18px]" strokeWidth={1.5} />
+            {unreadCount > 0 ? (
+              <span className="absolute right-0 top-0 grid h-3.5 min-w-3.5 place-items-center rounded-full bg-sun-400 px-1 text-[9px] font-semibold leading-none text-ink-900">
+                {unreadCount}
+              </span>
+            ) : null}
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={onOpenNotifications}
-          className="relative grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white/10"
-          aria-label={unreadCount > 0 ? `Notificações, ${unreadCount} atividades sem leitura` : "Notificações"}
-        >
-          <Bell className="h-5 w-5" />
-          {unreadCount > 0 ? (
-            <span className="absolute right-1.5 top-1.5 grid h-4 min-w-4 place-items-center rounded-full bg-sun-400 px-1 text-[10px] font-extrabold text-ink-900">
-              {unreadCount}
-            </span>
-          ) : null}
-        </button>
       </div>
       <SegmentedControl
-        className="mt-3"
-        tone="dark"
+        className="mt-4 border-slate-100 bg-white"
         label="Filtrar por cultura"
         value={culture}
         options={cultureOptions}

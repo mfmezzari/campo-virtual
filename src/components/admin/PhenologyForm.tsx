@@ -35,7 +35,7 @@ export function PhenologyForm() {
       />
       <p className="text-sm text-ink-500">
         Produtores veem {culture === "soja" ? "soja" : "milho"} em{" "}
-        <span className="font-extrabold text-ink-900">{stageCode(culture)}</span>. A troca vale na hora.
+        <span className="font-semibold text-ink-900">{stageCode(culture)}</span>. A troca vale na hora.
       </p>
       <fieldset className="space-y-2">
         <legend className="sr-only">Estádio atual</legend>
@@ -60,7 +60,7 @@ export function PhenologyForm() {
                 }}
               />
               <span>
-                <span className="block text-sm font-extrabold text-ink-900">
+                <span className="block text-sm font-semibold text-ink-900">
                   {stage.code} · {stage.name}
                 </span>
                 <span className="block text-xs text-ink-500">{stage.observe}</span>

@@ -170,7 +170,7 @@ export function FeedForm() {
           onChange={(event) => void onFile(event.target.files?.[0])}
         />
         {optimizing ? (
-          <p className="mt-1 text-xs font-extrabold text-leaf-700" role="status">
+          <p className="mt-1 text-xs font-semibold text-leaf-700" role="status">
             Otimizando imagem...
           </p>
         ) : null}

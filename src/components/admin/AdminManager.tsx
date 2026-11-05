@@ -27,7 +27,7 @@ export function AdminManager() {
 
   return (
     <div className="space-y-4">
-      <div className="overflow-hidden rounded-3xl bg-white shadow-card">
+      <div className="overflow-hidden rounded-xl bg-white border border-slate-200/80 shadow-sm">
         <table className="w-full text-left text-sm">
           <caption className="sr-only">Administradores ativos da DETEC</caption>
           <thead className="text-xs uppercase tracking-wide text-ink-500">
@@ -42,7 +42,7 @@ export function AdminManager() {
               <tr key={admin.id} className="border-t border-leaf-100">
                 <td className="px-3 py-3 font-bold text-ink-900">{admin.name}</td>
                 <td className="px-3 py-3 text-ink-700">{admin.matricula}</td>
-                <td className="px-3 py-3 text-xs font-extrabold uppercase text-leaf-800">
+                <td className="px-3 py-3 text-xs font-semibold uppercase text-leaf-800">
                   {admin.matricula === SUPER_ADMIN.matricula ? "Super admin" : "Equipe"}
                 </td>
               </tr>
@@ -52,7 +52,7 @@ export function AdminManager() {
       </div>
 
       <form className="space-y-3" onSubmit={onSubmit}>
-        <h2 className="text-base font-extrabold text-ink-900">Nova matrícula</h2>
+        <h2 className="text-base font-semibold text-ink-900">Nova matrícula</h2>
         <Field label="Nome" htmlFor="admin-name">
           <input id="admin-name" className={controlClass} value={name} onChange={(event) => setName(event.target.value)} required />
         </Field>

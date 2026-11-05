@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import type { ActiveSheet, Culture, CultureFilter, TabId } from "../types";
-import { plots } from "../data/mock";
+import { FIELD_TODAY, fieldMeta, plots, stationWeather } from "../data/mock";
+import { daysBetween, formatDecimal } from "../lib/format";
 import { feedCategoryLabel } from "../lib/feed";
 import { doubtMessage, formatWhatsapp, whatsappLink } from "../lib/whatsapp";
 import { useField } from "../state/FieldContext";
@@ -26,6 +27,7 @@ export function PublicPage() {
   const [sheet, setSheet] = useState<ActiveSheet>(null);
   const [highlightId, setHighlightId] = useState<string | null>(null);
   const [photoPlotId, setPhotoPlotId] = useState<string | null>(null);
+  const [valuesVisible, setValuesVisible] = useState(true);
 
   const livePlots = plots.map((plot) => ({ ...plot, stageCode: stageCode(plot.culture) }));
   const likedIds = useMemo(() => new Set(likedPostIds), [likedPostIds]);
@@ -49,8 +51,10 @@ export function PublicPage() {
       <Header
         culture={culture}
         unreadCount={unreadAlerts.length}
+        valuesVisible={valuesVisible}
         onCultureChange={setCulture}
         onOpenNotifications={() => setSheet({ type: "notifications" })}
+        onToggleValues={() => setValuesVisible((current) => !current)}
       />
       <main className="scroll-area flex-1 overflow-y-auto px-4">
         <div key={tab} className="screen-enter">
@@ -60,8 +64,15 @@ export function PublicPage() {
               culture={culture}
               likedIds={likedIds}
               highlightId={highlightId}
+              sojaStage={stageCode("soja")}
+              milhoStage={stageCode("milho")}
+              valuesVisible={valuesVisible}
               onToggleLike={toggleLike}
               onAsk={openDoubt}
+              onOpenTab={(next) => {
+                setHighlightId(null);
+                setTab(next);
+              }}
             />
           ) : null}
           {tab === "photos" ? (
@@ -86,7 +97,7 @@ export function PublicPage() {
               <button
                 type="button"
                 onClick={() => setTab("clima")}
-                className="text-sm font-extrabold text-leaf-700"
+                className="text-sm font-semibold text-leaf-700"
               >
                 Voltar ao clima
               </button>
@@ -98,7 +109,7 @@ export function PublicPage() {
             </div>
           ) : null}
           {tab === "croqui" ? <CroquiTab parcelas={parcelasCroqui} culture={culture} /> : null}
-          {tab === "live" ? <LiveView culture={culture} /> : null}
+          {tab === "live" ? <LiveView /> : null}
         </div>
         <PublicFooter />
       </main>
@@ -131,13 +142,13 @@ export function PublicPage() {
                     setTab("feed");
                     setSheet(null);
                   }}
-                  className="w-full rounded-2xl bg-white px-3 py-3 text-left"
+                  className="w-full rounded-lg border border-slate-200/80 bg-slate-50 px-3 py-3 text-left transition-all duration-150 hover:border-slate-300"
                 >
-                  <span className="flex items-center justify-between gap-2 text-xs font-extrabold uppercase tracking-wide text-ink-500">
+                  <span className="flex items-center justify-between gap-2 text-xs font-semibold uppercase tracking-wide text-ink-500">
                     Nova atividade · {feedCategoryLabel[item.kind]}
                     {unread ? <span className="rounded-full bg-sun-400 px-2 py-0.5 text-ink-900">Novo</span> : null}
                   </span>
-                  <span className="mt-1 block text-sm font-bold text-ink-900">
+                  <span className="mt-1 block text-sm font-medium text-ink-900">
                     {plot ? `Parcela ${plot.number} · ${plot.name}` : item.culture}
                   </span>
                   <span className="mt-1 block text-sm text-ink-700">{item.text}</span>
@@ -157,7 +168,7 @@ export function PublicPage() {
         onClose={() => setSheet(null)}
       >
         {activeAgronomos.length === 0 ? (
-          <p className="rounded-2xl bg-white px-4 py-4 text-sm font-semibold text-ink-700">
+          <p className="rounded-lg border border-slate-200/80 bg-slate-50 px-4 py-8 text-center text-sm leading-relaxed text-ink-500">
             Nenhum agrônomo ativo no momento. A equipe DETEC ainda não publicou um contato.
           </p>
         ) : (
@@ -171,11 +182,11 @@ export function PublicPage() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block rounded-3xl bg-white px-4 py-4"
+                    className="block rounded-lg border border-slate-200/80 bg-white px-4 py-3 transition-all duration-150 hover:border-slate-300"
                   >
-                    <span className="block font-extrabold text-ink-900">{contato.nome}</span>
+                    <span className="block font-semibold text-ink-900">{contato.nome}</span>
                     <span className="mt-0.5 block text-sm text-ink-500">{contato.especialidade}</span>
-                    <span className="mt-2 block text-sm font-extrabold text-leaf-700">
+                    <span className="mt-2 block text-sm font-semibold text-leaf-700">
                       WhatsApp {formatWhatsapp(contato.whatsapp)}
                     </span>
                   </a>
@@ -184,6 +195,29 @@ export function PublicPage() {
             })}
           </ul>
         )}
+      </BottomSheet>
+
+      <BottomSheet
+        open={sheet?.type === "report"}
+        title="Relatório do dia"
+        description={fieldMeta.location}
+        onClose={() => setSheet(null)}
+      >
+        <dl className="divide-y divide-slate-100 rounded-2xl border border-slate-100 bg-white">
+          {[
+            ["Soja", `${stageCode("soja")} · ${daysBetween(plots.find((plot) => plot.culture === "soja")?.emergenceDate ?? FIELD_TODAY, FIELD_TODAY)} DAE`],
+            ["Milho", `${stageCode("milho")} · ${daysBetween(plots.find((plot) => plot.culture === "milho")?.emergenceDate ?? FIELD_TODAY, FIELD_TODAY)} DAE`],
+            ["Estação", `${formatDecimal(stationWeather.temperatureC, 0)}°C · ${stationWeather.humidityPct}%`],
+            ["Atividades", String(feed.length)],
+            ["Manejos", String(applications.length)],
+            ["Alertas sem leitura", String(unreadAlerts.length)],
+          ].map(([label, value]) => (
+            <div key={label} className="flex items-center justify-between gap-3 px-4 py-3">
+              <dt className="text-sm text-ink-500">{label}</dt>
+              <dd className="text-sm font-semibold text-ink-900">{valuesVisible ? value : "••••"}</dd>
+            </div>
+          ))}
+        </dl>
       </BottomSheet>
     </PhoneFrame>
   );
